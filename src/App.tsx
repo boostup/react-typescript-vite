@@ -1,10 +1,15 @@
 import './App.css'
+import { SignInProvider } from './components/Auth/SignInProvider'
+import { FirebaseSignInExample } from './components/FirebaseSignInExample'
 
 function App() {
 
   return (
     <>
-      <p>Hello React + TypesScript + Vite!</p>
+      <SignInProvider>
+        {(props) =>
+          (<FirebaseSignInExample {...props} />)}
+      </SignInProvider>
     </>
   )
 }
