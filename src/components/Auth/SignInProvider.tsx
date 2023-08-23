@@ -7,17 +7,23 @@ export const SignInProvider = ({ children }) => {
     const firebaseAuth = getAuth(app);
     const provider = new GoogleAuthProvider();
 
-    const { signedUser, setSignedUser } = useSignedUser();
+    const { signedUser, setSignedUser, authError, setAuthError } = useSignedUser();
 
     const handleLogin = async () => {
-        const response = await signInWithPopup(firebaseAuth, provider);
-        const { user } = response;
-        setSignedUser({
-            displayName: user.displayName,
-            email: user.email,
-            photoURL: user.photoURL,
-            accessToken: user.accessToken,
-        });
+        setAuthError("");
+        try {
+            const response = await signInWithPopup(firebaseAuth, provider);
+            const { user } = response;
+            // throw new Error("An error has occcured");
+            setSignedUser({
+                displayName: user.displayName,
+                email: user.email,
+                photoURL: user.photoURL,
+                accessToken: user.accessToken,
+            });
+        } catch (error: any) {
+            setAuthError(error.toString());
+        }
     }
 
     const handleLogout = async () => {
@@ -25,5 +31,5 @@ export const SignInProvider = ({ children }) => {
         setSignedUser(null);
     }
 
-    return children({ signedUser, handleLogin, handleLogout })
+    return children({ signedUser, handleLogin, handleLogout, authError, setAuthError })
 }

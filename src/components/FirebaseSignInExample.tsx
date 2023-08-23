@@ -1,6 +1,6 @@
 import { SignedIn, SignedOut } from "./Auth"
 
-export const FirebaseSignInExample = ({ signedUser, handleLogin, handleLogout }) => {
+export const FirebaseSignInExample = ({ signedUser, handleLogin, handleLogout, authError }) => {
 
     return (
         <>
@@ -14,6 +14,7 @@ export const FirebaseSignInExample = ({ signedUser, handleLogin, handleLogout })
                 <button className="login__button" onClick={handleLogin}><i className="fab fa-google"></i>
                     Sign with Google
                 </button>
+                {authError && <p><i>{authError}</i></p>}
             </SignedOut>
         </>
     )
