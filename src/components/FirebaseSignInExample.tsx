@@ -1,20 +1,28 @@
 import { SignedIn, SignedOut } from "./Auth"
+import { User } from "./Auth/user.store"
 
-export const FirebaseSignInExample = ({ signedUser, handleLogin, handleLogout, authError }) => {
+interface FirebaseSignInExampleProps {
+    signedUser: User
+    handleLogout: () => {}
+    handleLogin: () => {}
+    authError: string
+}
+
+export const FirebaseSignInExample = (props: FirebaseSignInExampleProps) => {
 
     return (
         <>
             <SignedIn>
-                <p>Welcome {signedUser?.displayName}</p>
-                <button onClick={handleLogout}>
+                <p>Welcome {props.signedUser?.displayName}</p>
+                <button onClick={props.handleLogout}>
                     Sign out
                 </button>
             </SignedIn>
             <SignedOut>
-                <button className="login__button" onClick={handleLogin}><i className="fab fa-google"></i>
+                <button className="login__button" onClick={props.handleLogin}><i className="fab fa-google"></i>
                     Sign with Google
                 </button>
-                {authError && <p><i>{authError}</i></p>}
+                {props.authError && <p><i>{props.authError}</i></p>}
             </SignedOut>
         </>
     )

@@ -1,8 +1,12 @@
 import { GoogleAuthProvider, getAuth, signInWithPopup, signOut } from "firebase/auth";
-import { app } from '../../services/firebase';
+import { app } from "../../services/firebase";
 import { useSignedUser } from "./user.store";
 
-export const SignInProvider = ({ children }) => {
+interface SignInProviderProps {
+    children: React.FunctionComponent;
+}
+
+export const SignInProvider = ({ children }: SignInProviderProps) => {
 
     const firebaseAuth = getAuth(app);
     const provider = new GoogleAuthProvider();
@@ -14,12 +18,13 @@ export const SignInProvider = ({ children }) => {
         try {
             const response = await signInWithPopup(firebaseAuth, provider);
             const { user } = response;
+            const accessToken = await user.getIdToken();
             // throw new Error("An error has occcured");
             setSignedUser({
-                displayName: user.displayName,
-                email: user.email,
-                photoURL: user.photoURL,
-                accessToken: user.accessToken,
+                displayName: user.displayName ?? "",
+                email: user.email ?? "",
+                photoURL: user.photoURL ?? "",
+                accessToken,
             });
         } catch (error: any) {
             setAuthError(error.toString());

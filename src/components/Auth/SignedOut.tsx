@@ -1,11 +1,11 @@
 import { useSignedUser } from "./user.store";
 
-export const SignedOut = ({ children }) => {
+export const SignedOut = ({ children }: React.PropsWithChildren) => {
     const { signedUser } = useSignedUser();
 
     return (
         <>
-            {signedUser === null
+            {!signedUser
                 ? <>{children}</>
                 : <>
                     {/* <p>User IS signed in: will redirect</p> */}
