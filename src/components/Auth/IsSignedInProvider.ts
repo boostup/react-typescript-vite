@@ -1,10 +1,12 @@
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useState } from "react";
 
-interface IsSignedInProviderProps {
-    children: React.FunctionComponent;
+interface IsSignedInProps {
+    isSignedIn: boolean
 }
-
+interface IsSignedInProviderProps {
+    children: React.FunctionComponent<IsSignedInProps>;
+}
 
 export const IsSignedInProvider = ({ children }: IsSignedInProviderProps) => {
     const auth = getAuth();
