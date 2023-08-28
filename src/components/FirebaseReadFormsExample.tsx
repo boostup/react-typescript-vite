@@ -1,21 +1,21 @@
 import { getDatabase, ref, onValue } from "firebase/database";
 import { useState } from "react";
 
-export const FirebaseReadExample = () => {
+export const FirebaseReadFormsExample = () => {
     const db = getDatabase();
     const [forms, setForms] = useState();
 
     const handleClick = () => {
-        onValue(ref(db, '/'), (snapshot) => {
+        onValue(ref(db, '/forms'), (snapshot) => {
             setForms(snapshot.val());
         }, { onlyOnce: true });
     }
 
     return (
         <>
-            <p>FirebaseReadExample</p>
+            <p>FirebaseReadFormsExample</p>
             <button onClick={handleClick}>Read Forms object</button>
-            {forms && (<div style={{ textAlign: "left" }}>
+            {forms && (<div>
                 <pre>{JSON.stringify(forms, null, 2)}</pre>
             </div>)}
         </>

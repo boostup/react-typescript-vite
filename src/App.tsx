@@ -1,8 +1,10 @@
 import './App.css'
 import { SignedIn } from './components/Auth'
 import { SignInProvider } from './components/Auth/SignInProvider'
-import { FirebaseReadExample } from './components/FirebaseReadExample'
+import { FirebaseReadFormsExample } from './components/FirebaseReadFormsExample'
+import { FirebaseReadSampleUserExample } from './components/FirebaseReadSampleUserExample'
 import { FirebaseSignInExample } from './components/FirebaseSignInExample'
+import { FirebaseUpdateExample } from './components/FirebaseUpdateExample'
 import { FirebaseWriteExample } from './components/FirebaseWriteExample'
 
 function App() {
@@ -14,8 +16,10 @@ function App() {
           (<FirebaseSignInExample {...props} />)}
       </SignInProvider>
       <SignedIn>
+        <FirebaseReadSampleUserExample />
         <FirebaseWriteExample />
-        <FirebaseReadExample />
+        <FirebaseUpdateExample />
+        <FirebaseReadFormsExample />
       </SignedIn>
     </>
   )
