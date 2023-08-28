@@ -7,20 +7,25 @@ interface UserData {
     imageUrl: string
 }
 
-function writeUserData(data: UserData) {
+async function writeUserData(data: UserData) {
     const db = getDatabase();
-    set(ref(db, 'users/' + data.userId), {
+    return set(ref(db, 'users/' + data.userId), {
         username: data.name,
         email: data.email,
         profile_picture: data.imageUrl
     });
 }
 
-const handleWriteUserData = () => {
-    writeUserData({ userId: "some-user-id", name: "fred", email: "boostup@gmail.com", imageUrl: "" });
-}
-
 export const FirebaseWriteExample = () => {
+
+    const handleWriteUserData = async () => {
+        try {
+            await writeUserData({ userId: "some-user-id", name: "fred", email: "boostup@gmail.com", imageUrl: "" });
+        } catch (error: any) {
+            console.log(error.toString())
+        }
+
+    }
 
     return (
         <>
